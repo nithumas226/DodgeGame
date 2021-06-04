@@ -30,14 +30,27 @@ namespace DodgeGame
         SolidBrush whiteBrush = new SolidBrush(Color.White);
         SolidBrush blackBrush = new SolidBrush(Color.Black);
 
-
+        string gameState = "starting";
         public Form1()
         {
             InitializeComponent();
+        }
+
+        public void GameInitialize()
+        {
+            titleLabel.Text = "";
+            subtitleLabel.Text = "";
+
+            player = new Rectangle(10, 293, 15, 15);
+            upRectangles.Clear();
+            downRectangles.Clear();
             Rectangle leftRectangles = new Rectangle(190, 0, 20, 60);
             downRectangles.Add(leftRectangles);
             Rectangle rightRectangles = new Rectangle(490, 540, 20, 60);
             upRectangles.Add(rightRectangles);
+
+            gameTimer.Enabled = true;
+            gameState = "running";
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -55,6 +68,18 @@ namespace DodgeGame
                     break;
                 case Keys.Down:
                     downDown = true;
+                    break;
+                case Keys.Space:
+                    if (gameState == "starting" || gameState == "over")
+                    {
+                        GameInitialize();
+                    }
+                    break;
+                case Keys.Escape:
+                    if (gameState == "starting" || gameState == "over")
+                    {
+                        Application.Exit();
+                    }
                     break;
             }
         }
@@ -74,7 +99,7 @@ namespace DodgeGame
                     break;
                 case Keys.Down:
                     downDown = false;
-                    break;
+                    break;  
             }
         }
 
@@ -143,7 +168,7 @@ namespace DodgeGame
                 if (player.IntersectsWith(downRectangles[i]))
                 {
                     gameTimer.Enabled = false;
-                    outputLabel.Text = "You Lose!!";
+                    gameState = "over";
                 }
             }
 
@@ -152,28 +177,48 @@ namespace DodgeGame
                 if (player.IntersectsWith(upRectangles[i]))
                 {
                     gameTimer.Enabled = false;
-                    outputLabel.Text = "You Lose!!";
+                    gameState = "over";
                 }
             }
 
             if (player.X > this.Width - player.Width)            
             {
                 gameTimer.Enabled = false;
-                outputLabel.Text = "You Win!!";
+                gameState = "over";
             }
+            
             Refresh();
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.FillRectangle(whiteBrush, player);
-            for (int i = 0; i < downRectangles.Count(); i++)
+            if (gameState == "starting")
             {
-                e.Graphics.FillRectangle(blackBrush, downRectangles[i]);
-                e.Graphics.FillRectangle(blackBrush, upRectangles[i]);
+                titleLabel.Text = "Dodger Game 2021";
+                subtitleLabel.Text = "Press Spacebar to Start or Esc to Close";
             }
-             
-
+            else if (gameState == "running")
+            {
+                e.Graphics.FillRectangle(whiteBrush, player);
+                for (int i = 0; i < downRectangles.Count(); i++)
+                {
+                    e.Graphics.FillRectangle(blackBrush, downRectangles[i]);
+                    e.Graphics.FillRectangle(blackBrush, upRectangles[i]);
+                }
+            }
+            else if (gameState == "over")
+            {
+                if (player.X > this.Width - player.Width)
+                {
+                    titleLabel.Text = "You Win!!";
+                    subtitleLabel.Text = "Press Spacebar to Play Again or Esc to Close";
+                }
+                else
+                {
+                    titleLabel.Text = "You Lost!!";
+                    subtitleLabel.Text = "Press Spacebar to Play Again or Esc to Close";
+                }
+            }
         }
     }
 }

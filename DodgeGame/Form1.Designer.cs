@@ -31,25 +31,35 @@ namespace DodgeGame
         {
             this.components = new System.ComponentModel.Container();
             this.gameTimer = new System.Windows.Forms.Timer(this.components);
-            this.outputLabel = new System.Windows.Forms.Label();
+            this.titleLabel = new System.Windows.Forms.Label();
+            this.subtitleLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // gameTimer
             // 
-            this.gameTimer.Enabled = true;
             this.gameTimer.Interval = 20;
             this.gameTimer.Tick += new System.EventHandler(this.gameTimer_Tick);
             // 
-            // outputLabel
+            // titleLabel
             // 
-            this.outputLabel.BackColor = System.Drawing.Color.Transparent;
-            this.outputLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.outputLabel.ForeColor = System.Drawing.Color.White;
-            this.outputLabel.Location = new System.Drawing.Point(250, 218);
-            this.outputLabel.Name = "outputLabel";
-            this.outputLabel.Size = new System.Drawing.Size(124, 23);
-            this.outputLabel.TabIndex = 0;
-            this.outputLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.titleLabel.BackColor = System.Drawing.Color.Transparent;
+            this.titleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.titleLabel.Location = new System.Drawing.Point(2, 241);
+            this.titleLabel.Name = "titleLabel";
+            this.titleLabel.Size = new System.Drawing.Size(599, 45);
+            this.titleLabel.TabIndex = 1;
+            this.titleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // subtitleLabel
+            // 
+            this.subtitleLabel.BackColor = System.Drawing.Color.Transparent;
+            this.subtitleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.subtitleLabel.ForeColor = System.Drawing.Color.White;
+            this.subtitleLabel.Location = new System.Drawing.Point(2, 314);
+            this.subtitleLabel.Name = "subtitleLabel";
+            this.subtitleLabel.Size = new System.Drawing.Size(599, 23);
+            this.subtitleLabel.TabIndex = 2;
+            this.subtitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Form1
             // 
@@ -57,7 +67,8 @@ namespace DodgeGame
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.IndianRed;
             this.ClientSize = new System.Drawing.Size(600, 600);
-            this.Controls.Add(this.outputLabel);
+            this.Controls.Add(this.subtitleLabel);
+            this.Controls.Add(this.titleLabel);
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.Color.Black;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -74,7 +85,8 @@ namespace DodgeGame
         #endregion
 
         private System.Windows.Forms.Timer gameTimer;
-        private System.Windows.Forms.Label outputLabel;
+        private System.Windows.Forms.Label titleLabel;
+        private System.Windows.Forms.Label subtitleLabel;
     }
 }
 
